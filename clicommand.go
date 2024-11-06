@@ -8,6 +8,7 @@ type cliCommand struct {
 
 func commands() map[string]cliCommand {
   commands := make(map[string]cliCommand)
+
   commands["help"] = cliCommand {
     name:        "help", 
     description: "Displays a help message", 
