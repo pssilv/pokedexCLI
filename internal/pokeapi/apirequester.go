@@ -8,7 +8,7 @@ import (
 )
 
 
-func getLocations() {
+func GetLocations() {
   res, err := http.Get(locations_url)
   if err != nil {
     log.Fatal(err)
