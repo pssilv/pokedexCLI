@@ -22,7 +22,7 @@ func commands() map[string]cliCommand {
   }
 
   commands["showMap"] = cliCommand {
-    name:       "map",
+    name:       "showMap",
     description: "Show the map",
     callback:    showMap,
   }

@@ -1,14 +1,14 @@
 package pokeapi
 
 import (
-  "fmt"
+	"encoding/json"
 	"io"
 	"log"
 	"net/http"
 )
 
 
-func GetLocations() {
+func GetLocations() string {
   res, err := http.Get(locations_url)
   if err != nil {
     log.Fatal(err)
@@ -20,5 +20,9 @@ func GetLocations() {
     log.Fatal(err)
   }
 
-  fmt.Println(body)
+  var locations string
+
+  json.Unmarshal(body, &locations)
+  
+  return locations
 } 
