@@ -1,20 +1,17 @@
 package pokeapi
 
 var locations_url = "https://pokeapi.co/api/v2/location-area"
-var do_previous = false
+var at_first = true
 
 func NextUrl() {
+  if !at_first {
     locations_url = GetLocations().Next
-    do_previous = true
+  } else {
+    at_first = false
+  }
 }
 
 func PreviousUrl() {
-  if do_previous == true && GetLocations().Previous != "" {
-    locations_url = GetLocations().Previous
-    do_previous = false
-  }
-
-
   if GetLocations().Previous != "" {
     locations_url = GetLocations().Previous
   }

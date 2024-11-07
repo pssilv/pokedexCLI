@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"time"
 )
 
 type Locations struct {
@@ -17,7 +18,9 @@ type Locations struct {
 }
 
 func GetLocations() Locations {
-  client := &http.Client{}
+  client := &http.Client{
+    Timeout: 5 * time.Second,
+  }
 
   req, err := http.NewRequest("GET", locations_url, nil)
   if err != nil {

@@ -8,6 +8,7 @@ import (
 )
 
 func showmap() error {
+  pokeapi.NextUrl()
   locations_data := pokeapi.GetLocations()
 
   fmt.Println("------------------------")
@@ -15,7 +16,6 @@ func showmap() error {
     fmt.Println(location.Name)
   }
   fmt.Println("------------------------")
-  pokeapi.NextUrl()
 
   return nil
 }
