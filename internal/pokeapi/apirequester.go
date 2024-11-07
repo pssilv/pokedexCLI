@@ -2,27 +2,41 @@ package pokeapi
 
 import (
 	"encoding/json"
-	"io"
 	"log"
 	"net/http"
 )
 
+type Locations struct {
+	Count    int    `json:"count"`
+	Next     string `json:"next"`
+	Previous string    `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	} `json:"results"`
+}
 
-func GetLocations() string {
-  res, err := http.Get(locations_url)
+func GetLocations() Locations {
+  client := &http.Client{}
+
+  req, err := http.NewRequest("GET", locations_url, nil)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  res, err := client.Do(req)
   if err != nil {
     log.Fatal(err)
   }
   defer res.Body.Close()
   
-  body, err := io.ReadAll(res.Body)
-  if err != nil {
+  var locations Locations
+  decoder := json.NewDecoder(res.Body)
+  
+
+  if err := decoder.Decode(&locations); err != nil {
     log.Fatal(err)
   }
-
-  var locations string
-
-  json.Unmarshal(body, &locations)
   
   return locations
-} 
+}

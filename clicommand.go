@@ -21,10 +21,16 @@ func commands() map[string]cliCommand {
     callback:    exit,
   }
 
-  commands["showMap"] = cliCommand {
-    name:       "showMap",
+  commands["showmap"] = cliCommand {
+    name:       "showmap",
     description: "Show the map",
-    callback:    showMap,
+    callback:    showmap,
+  }
+
+  commands["showmapb"] = cliCommand {
+    name: "showmapb",
+    description: "Show the previous page of the map",
+    callback: showmapb,
   }
 
   return commands

@@ -2,12 +2,17 @@ package main
 
 import (
   "fmt"
-  
 
   "github.com/pssilv/pokedexCLI/internal/pokeapi"
 )
 
-func showmap() error {
+func showmapb() error {
+  if pokeapi.GetLocations().Previous == "" {
+    fmt.Println("Already at the first page")
+    return nil
+  }
+
+  pokeapi.PreviousUrl()
   locations_data := pokeapi.GetLocations()
 
   fmt.Println("------------------------")
@@ -15,7 +20,6 @@ func showmap() error {
     fmt.Println(location.Name)
   }
   fmt.Println("------------------------")
-  pokeapi.NextUrl()
 
   return nil
 }
