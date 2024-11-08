@@ -17,7 +17,7 @@ type Cache struct {
   mu       sync.RWMutex
 }
 
-func NewCache(key string, duration time.Duration) *Cache {
+func NewCache(duration time.Duration) *Cache {
   new_cache := &Cache{
     interval: duration,
     cache: make(map[string]cacheEntry),
