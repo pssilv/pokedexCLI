@@ -6,7 +6,7 @@ import (
   "github.com/pssilv/pokedexCLI/internal/pokeapi"
 )
 
-func showmapb() error {
+func showmapb(none string) error {
   if pokeapi.GetLocations().Previous == "" {
     fmt.Println("Already at the first page")
     return nil

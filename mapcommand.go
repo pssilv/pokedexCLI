@@ -6,7 +6,7 @@ import (
   "github.com/pssilv/pokedexCLI/internal/pokeapi"
 )
 
-func showmap() error {
+func showmap(none string) error {
   pokeapi.NextUrl()
   locations_data := pokeapi.GetLocations()
 

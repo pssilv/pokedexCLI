@@ -13,13 +13,24 @@ func REPL() {
 
   fmt.Print("pokedex > ")
   for scanner.Scan() {
-    input := strings.ToLower(scanner.Text())
+    separated_input := strings.Fields(scanner.Text())
+    input := strings.ToLower(separated_input[0])
 
-    if command, ok := commands[input]; ok {
-      command.callback()
-    } else {
-      fmt.Println("Invalid command, try: - help -")
-      fmt.Println()
+    command := commands[input]
+    switch (command.name) {
+      case "showmap", "showmapb", "help", "exit":
+        command.callback("no arguments required")
+      case "explore":
+        if len(separated_input) > 1 && len(separated_input) < 3 {
+          area := separated_input[1]
+          command.callback(area)
+        } else {
+          fmt.Println("Needs a area name first, try - showmap - for some areas")
+          break
+        }
+      default:
+        fmt.Println("Invalid command, try - help -")
+
     }
     fmt.Print("pokedex > ")
   }
