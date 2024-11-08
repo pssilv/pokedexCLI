@@ -49,7 +49,7 @@ func (c *Cache) Get(key string) ([]byte, bool) {
 }
 
 func (c *Cache) reapLoop() {
-  ticker := time.NewTicker(1 * time.Second)
+  ticker := time.NewTicker(1 * time.Millisecond)
   defer ticker.Stop()
   
   for range ticker.C {

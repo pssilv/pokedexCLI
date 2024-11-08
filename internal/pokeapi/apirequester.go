@@ -2,11 +2,12 @@ package pokeapi
 
 import (
 	"encoding/json"
+	"io"
 	"log"
 	"net/http"
 	"time"
 
-  "github.com/pssilv/pokedexCLI/internal/pokecache"
+	"github.com/pssilv/pokedexCLI/internal/pokecache"
 )
 
 type Locations struct {
@@ -19,12 +20,12 @@ type Locations struct {
 	} `json:"results"`
 }
 
-var cache = pokecache.NewCache(10)
+var locations_cache = pokecache.NewCache(30 * time.Second)
 
 func GetLocations() Locations {
   var locations Locations
 
-  if data, exists := cache.Get(locations_url); exists {
+  if data, exists := locations_cache.Get(locations_url); exists {
     json.Unmarshal(data, &locations)
     return locations
   }
@@ -44,19 +45,13 @@ func GetLocations() Locations {
   }
   defer res.Body.Close()
 
-  decoder := json.NewDecoder(res.Body)
-  
-  if err := decoder.Decode(&locations); err != nil {
+  body, err := io.ReadAll(res.Body)
+ 
+  if err := json.Unmarshal(body, &locations); err != nil {
     log.Fatal(err)
   }
 
-  byte_slice, err := json.Marshal(res.Body)
-  if err != nil {
-    log.Fatal(err)
-  }  
-
-  cache.Add(locations_url, byte_slice)  
-
+  locations_cache.Add(locations_url, body)  
  
   return locations
 }

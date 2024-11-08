@@ -6,6 +6,6 @@ import (
 
 func exit() error {
   os.Exit(0)
-  
+
   return nil
 }
