@@ -24,6 +24,9 @@ func REPL() {
         if len(separated_input) > 1 && len(separated_input) < 3 {
           area := separated_input[1]
           command.callback(area)
+        } else if len(separated_input) > 2 {
+          fmt.Println("explore got 2 arguments, need 1")
+          break
         } else {
           fmt.Println("Needs a area name first, try - showmap - for some areas")
           break

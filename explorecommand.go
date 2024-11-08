@@ -10,6 +10,7 @@ func explore(area string) error{
   area_data, err := pokeapi.GetArea(area)
   if err != nil {
     fmt.Println(err)
+    fmt.Println("You can try - showmap - for some valid areas")
     return nil
   }
  
