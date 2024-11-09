@@ -1,10 +1,10 @@
 package main
 
 import (
-  "fmt"
-  "bufio"
-  "os"
-  "strings"
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
 )
 
 func REPL() {
@@ -24,12 +24,23 @@ func REPL() {
         if len(separated_input) > 1 && len(separated_input) < 3 {
           area := separated_input[1]
           command.callback(area)
+          // area_url is from "catchcommand.go"
+          area_url = area
         } else if len(separated_input) > 2 {
-          fmt.Println("explore got 2 arguments, need 1")
+            fmt.Println("explore got 2 arguments, need 1")
           break
         } else {
           fmt.Println("Needs a area name first, try - showmap - for some areas")
           break
+        }
+      case "catch":
+        if len(separated_input) > 1 && len(separated_input) < 3 {
+          pokemon := separated_input[1]
+          command.callback(pokemon)
+        } else if len(separated_input) > 2 {
+            fmt.Println("catch got 2 arguments, need 1")
+        } else {
+          fmt.Println("Needs a pokemon first, try - explore - for some pokemons")
         }
       default:
         fmt.Println("Invalid command, try - help -")
@@ -40,3 +51,4 @@ func REPL() {
 
     fmt.Print("pokedex > ")
 }
+

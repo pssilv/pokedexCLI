@@ -35,8 +35,14 @@ func commands() map[string]cliCommand {
 
   commands["explore"] = cliCommand {
     name: "explore",
-    description: "Explore a spefific area and return found pokemons",
+    description: "Explore a specific area and return found pokemons",
     callback: explore,
+  }
+
+  commands["catch"] = cliCommand {
+    name: "catch",
+    description: "Catch a pokemon in a specific area",
+    callback: catch,
   }
 
   return commands

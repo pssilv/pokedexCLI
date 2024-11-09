@@ -1,13 +1,15 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 
-  "github.com/pssilv/pokedexCLI/internal/pokeapi"
+	"github.com/pssilv/pokedexCLI/internal/pokeapi"
 )
 
-func explore(area string) error{
+func explore(area string) error {
+
   area_data, err := pokeapi.GetArea(area)
+
   if err != nil {
     fmt.Println(err)
     fmt.Println("You can try - showmap - for some valid areas")
@@ -23,3 +25,5 @@ func explore(area string) error{
 
   return nil
 }
+
+
