@@ -10,14 +10,12 @@ import (
 	"github.com/pssilv/pokedexCLI/internal/pokeapi"
 )
 
-var area_url = "Placeholder"
-var catched_pokemons = make(map[string]pokeapi.Pokemon)
-
 func catch(pokemon string) error {
   pokemon_data, err := pokeapi.GetPokemonData(pokemon)
   if err != nil {
     fmt.Println(err)
     fmt.Println("You can try - explore - to get some pokemon names on a specific area")
+    return nil
   }
 
   pokemon_area_data, err := pokeapi.GetArea(area_url)

@@ -13,8 +13,11 @@ func showmapb(none string) error {
   }
 
   pokeapi.PreviousUrl()
+  map_index--
   locations_data := pokeapi.GetLocations()
 
+  fmt.Println("------------------------")
+  fmt.Printf("Map index: %d\n", map_index)
   fmt.Println("------------------------")
   for _, location := range locations_data.Results {
     fmt.Println(location.Name)

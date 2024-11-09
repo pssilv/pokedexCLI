@@ -40,7 +40,7 @@ func GetPokemonData(pokemon_url string) (Pokemon, error) {
   defer res.Body.Close()
 
   if res.StatusCode != http.StatusOK {
-    return Pokemon{}, errors.New("Pokemon doesn't exist try a valid pokemon name")
+    return Pokemon{}, errors.New("Pokemon on this speficic area doesn't exist try a valid pokemon name")
   }
   
   body, err := io.ReadAll(res.Body)
