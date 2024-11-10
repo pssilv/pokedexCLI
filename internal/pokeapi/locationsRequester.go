@@ -10,16 +10,6 @@ import (
 	"github.com/pssilv/pokedexCLI/internal/pokecache"
 )
 
-type Locations struct {
-	Count    int    `json:"count"`
-	Next     string `json:"next"`
-	Previous string    `json:"previous"`
-	Results  []struct {
-		Name string `json:"name"`
-		URL  string `json:"url"`
-	} `json:"results"`
-}
-
 var locations_cache = pokecache.NewCache(30 * time.Second)
 
 func GetLocations() Locations {
@@ -55,3 +45,14 @@ func GetLocations() Locations {
  
   return locations
 }
+
+type Locations struct {
+	Count    int    `json:"count"`
+	Next     string `json:"next"`
+	Previous string    `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	} `json:"results"`
+}
+

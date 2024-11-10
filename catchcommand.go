@@ -5,8 +5,6 @@ import (
 	"log"
 	"math/rand/v2"
 
-	//"math/rand"
-
 	"github.com/pssilv/pokedexCLI/internal/pokeapi"
 )
 

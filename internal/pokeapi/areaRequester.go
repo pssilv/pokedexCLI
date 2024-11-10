@@ -12,6 +12,49 @@ import (
 	"github.com/pssilv/pokedexCLI/internal/pokecache"
 )
 
+var areas_cache = pokecache.NewCache(30 * time.Second)
+
+func GetArea(areaName string) (Area, error){
+  var area Area
+  url := fmt.Sprintf("%v/%v", fixed_locations_url, areaName)
+  
+  if value, exists := areas_cache.Get(url); exists {
+    json.Unmarshal(value, &area)
+    return area, nil
+  }
+
+  client := &http.Client{
+    Timeout: 5 * time.Second,
+  }
+
+  req, err := http.NewRequest("GET", url, nil)
+    if err != nil {
+      log.Fatal(err)
+    }
+
+  res, err := client.Do(req)
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer res.Body.Close()
+
+  if res.StatusCode != http.StatusOK {
+    return Area{}, errors.New("Area doesn't exist try a valid area")
+  }
+
+  body, err := io.ReadAll(res.Body)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if err := json.Unmarshal(body, &area); err != nil {
+    log.Fatal(err)
+  }
+
+  areas_cache.Add(url, body)
+
+  return area, nil
+}
 
 type Area struct {
 	EncounterMethodRates []struct {
@@ -64,48 +107,4 @@ type Area struct {
 			} `json:"version"`
 		} `json:"version_details"`
 	} `json:"pokemon_encounters"`
-}
-
-var areas_cache = pokecache.NewCache(30 * time.Second)
-
-func GetArea(areaName string) (Area, error){
-  var area Area
-  url := fmt.Sprintf("%v/%v", fixed_locations_url, areaName)
-  
-  if value, exists := areas_cache.Get(url); exists {
-    json.Unmarshal(value, &area)
-    return area, nil
-  }
-
-  client := &http.Client{
-    Timeout: 5 * time.Second,
-  }
-
-  req, err := http.NewRequest("GET", url, nil)
-    if err != nil {
-      log.Fatal(err)
-    }
-
-  res, err := client.Do(req)
-  if err != nil {
-    log.Fatal(err)
-  }
-  defer res.Body.Close()
-
-  if res.StatusCode != http.StatusOK {
-    return Area{}, errors.New("Area doesn't exist try a valid area")
-  }
-
-  body, err := io.ReadAll(res.Body)
-  if err != nil {
-    log.Fatal(err)
-  }
-
-  if err := json.Unmarshal(body, &area); err != nil {
-    log.Fatal(err)
-  }
-
-  areas_cache.Add(url, body)
-
-  return area, nil
 }

@@ -1,9 +1,10 @@
 package pokeapi
 
-// For locations request
+// For locations requests
 var locations_url = "https://pokeapi.co/api/v2/location-area"
-// For area request
+// For area requests
 const fixed_locations_url = "https://pokeapi.co/api/v2/location-area"
+// for pokemon requests
 const fixed_pokemon_url = "https://pokeapi.co/api/v2/pokemon/"
 
 var at_first = true
