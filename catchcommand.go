@@ -11,13 +11,6 @@ import (
 )
 
 func catch(pokemon string) error {
-  pokemon_data, err := pokeapi.GetPokemonData(pokemon)
-  if err != nil {
-    fmt.Println(err)
-    fmt.Println("You can try - explore - to get some pokemon names on a specific area")
-    return nil
-  }
-
   pokemon_area_data, err := pokeapi.GetArea(area_url)
   if err != nil {
     return err
@@ -30,6 +23,13 @@ func catch(pokemon string) error {
     if err != nil {
       log.Fatalf("Error: %v", err)
     }
+  }
+
+  pokemon_data, ok := pokemon_area_list[pokemon]
+  if !ok {
+    fmt.Println("There are no pokemons with that name in the area")
+    fmt.Println("Try - explore - to get some valid pokemon names")
+    return nil
   }
 
   res := rand.IntN(pokemon_data.BaseExperience)
